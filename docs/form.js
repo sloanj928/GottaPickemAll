@@ -44,7 +44,6 @@ const weeklyPoll = {
   // Tiebreaker toggle (show/hide + required/optional)
   tiebreaker: {
     enabled: false,         // set false to hide it
-    required: true,        // set false to make it optional
     label: "Tiebreaker (Total Points)",
     placeholder: "e.g. 47"
   }
