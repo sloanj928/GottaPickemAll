@@ -29,6 +29,14 @@ const weeklyPoll = {
     { value: "GB",  label: "Packers", tag: "" },
     { value: "DET", label: "Lions",   tag: "" },
     { value: "CHI", label: "Bears",   tag: "" }
+       
+   //tiebreaker toggle
+   tiebreaker: {
+    enabled: true,
+    required: true,
+    label: "Total Points (tiebreaker)",
+    placeholder: "e.g. 47"
+  }
   ]
 };
 
