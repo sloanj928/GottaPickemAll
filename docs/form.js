@@ -19,13 +19,13 @@ const db = getFirestore(app);
 /* ====== 2) EDIT THIS EACH WEEK ====== */
 const weeklyPoll = {
   week: 1,
-  title: "Weekly Poll",
-  description: "Pick the winner for this week’s featured matchup. Commissioner can edit this text weekly.",
+  title: "Superbowl Champ",
+  description: "Pick your favorite team to win the Super Bowl\n +1pt for each playoff win\n +1pt for Super Bowl win",
   questionId: "featured_matchup",           // stable key for your script
-  questionText: "Featured Matchup Winner",  // shown above options
+  questionText: "team",  // shown above options
   choices: [
-    { value: "MIN", label: "Vikings", tag: "Skol" },
-    { value: "GB",  label: "Packers", tag: "Rival" },
+    { value: "MIN", label: "Vikings", tag: "SKOL" },
+    { value: "GB",  label: "Packers", tag: "" },
     { value: "DET", label: "Lions",   tag: "" },
     { value: "CHI", label: "Bears",   tag: "" }
   ]
