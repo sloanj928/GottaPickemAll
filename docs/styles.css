@@ -1,1 +1,122 @@
+:root{
+  --bg:#0f0b18;
+  --card:#171026;
+  --card2:#1f1633;
+  --purple:#4f2b7c;   /* muted vikings purple */
+  --purple2:#2a183f;
+  --gold:#caa23a;     /* muted gold */
+  --text:#f4f1fb;
+  --muted:#c9c2d9;
+  --border:rgba(202,162,58,.35);
+}
+
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: radial-gradient(1200px 700px at 20% 0%, #26163f 0%, var(--bg) 55%);
+  color:var(--text);
+  text-align:center;
+  padding:28px 14px 50px;
+}
+
+h1,h2{ margin: 6px 0 8px; }
+#pollTitle{ letter-spacing:.4px; }
+
+.poll-desc{
+  max-width: 720px;
+  margin: 0 auto 14px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.poll-card{
+  max-width: 720px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, var(--card) 0%, var(--card2) 100%);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 14px 40px rgba(0,0,0,.45);
+  border-radius: 16px;
+  padding: 18px 16px 16px;
+}
+
+.lbl{
+  display:block;
+  text-align:left;
+  margin: 12px 0 6px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+input{
+  width:100%;
+  box-sizing:border-box;
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+  color: var(--text);
+  outline: none;
+}
+
+input:focus{
+  border-color: var(--border);
+  box-shadow: 0 0 0 3px rgba(202,162,58,.12);
+}
+
+.choices{
+  display:grid;
+  gap:10px;
+  margin-top: 6px;
+}
+
+.choice{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(79,43,124,.12);
+  text-align:left;
+  cursor:pointer;
+  transition: transform .06s ease, border-color .12s ease, background .12s ease;
+}
+
+.choice:hover{
+  transform: translateY(-1px);
+  border-color: rgba(202,162,58,.38);
+}
+
+.choice input{ width:auto; margin:0; }
+.choice .tag{
+  margin-left:auto;
+  font-size:.78rem;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(202,162,58,.16);
+  border: 1px solid rgba(202,162,58,.25);
+  color: var(--gold);
+}
+
+.btn{
+  width:100%;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(202,162,58,.45);
+  background: linear-gradient(180deg, rgba(202,162,58,.22), rgba(202,162,58,.10));
+  color: var(--text);
+  font-weight: 700;
+  cursor:pointer;
+}
+
+.btn:hover{
+  border-color: rgba(202,162,58,.65);
+}
+
+.status{
+  margin: 10px 0 0;
+  color: var(--muted);
+  min-height: 1.2em;
+}
 
