@@ -19,56 +19,84 @@ const firebaseConfig = {
   appId: "1:1065015387295:web:23b95466834f0ec27deeaa",
 };
 
-/* =========================
-   2) INIT FIREBASE
-   ========================= */
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-console.log("form.js loaded ✅");
+/* ====== 2) EDIT THIS EACH WEEK ====== */
+const weeklyPoll = {
+  week: 1,
+  title: "Weekly Poll",
+  description: "Pick the winner for this week’s featured matchup. Commissioner can edit this text weekly.",
+  questionId: "featured_matchup",           // stable key for your script
+  questionText: "Featured Matchup Winner",  // shown above options
+  choices: [
+    { value: "MIN", label: "Vikings", tag: "Skol" },
+    { value: "GB",  label: "Packers", tag: "Rival" },
+    { value: "DET", label: "Lions",   tag: "" },
+    { value: "CHI", label: "Bears",   tag: "" }
+  ]
+};
 
-/* =========================
-   3) GRAB HTML ELEMENTS
-   ========================= */
+/* ====== 3) Render poll UI ====== */
 const form = document.getElementById("pickForm");
 const statusEl = document.getElementById("status");
-
 const nameEl = document.getElementById("name");
-const pickEl = document.getElementById("pick");
 const tiebreakerEl = document.getElementById("tiebreaker");
 
-/* =========================
-   4) SAFETY CHECK (helps debugging)
-   ========================= */
-console.log("form:", form);
-console.log("name:", nameEl);
-console.log("pick:", pickEl);
-console.log("tiebreaker:", tiebreakerEl);
-console.log("status:", statusEl);
+document.getElementById("pollTitle").innerText = weeklyPoll.title;
+document.getElementById("pollDesc").innerText = weeklyPoll.description;
 
-if (!form || !nameEl || !pickEl || !tiebreakerEl || !statusEl) {
-  console.error("❌ One or more HTML IDs do not match form.js");
+// Build radio choices
+const choicesWrap = document.getElementById("choices");
+choicesWrap.innerHTML = `
+  <div class="lbl" style="margin-top:0">${weeklyPoll.questionText}</div>
+`;
+
+weeklyPoll.choices.forEach((c, idx) => {
+  const id = `choice_${idx}`;
+  const tagHtml = c.tag ? `<span class="tag">${c.tag}</span>` : `<span class="tag" style="opacity:.0">.</span>`;
+  const div = document.createElement("label");
+  div.className = "choice";
+  div.setAttribute("for", id);
+  div.innerHTML = `
+    <input type="radio" id="${id}" name="pick" value="${c.value}" ${idx === 0 ? "checked" : ""} />
+    <span>${c.label}</span>
+    ${tagHtml}
+  `;
+  choicesWrap.appendChild(div);
+});
+
+function getSelectedPick() {
+  const selected = document.querySelector('input[name="pick"]:checked');
+  return selected ? selected.value : null;
 }
 
-/* =========================
-   5) FORM SUBMIT HANDLER
-   ========================= */
+/* ====== 4) Submit to Firestore ====== */
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-
   statusEl.innerText = "Submitting...";
+
+  const pickVal = getSelectedPick();
+  if (!pickVal) {
+    statusEl.innerText = "❌ Please choose an option.";
+    return;
+  }
 
   try {
     await addDoc(collection(db, "picks"), {
+      week: weeklyPoll.week,
       name: nameEl.value.trim(),
-      pick: pickEl.value,
+      questionId: weeklyPoll.questionId,
+      pick: pickVal,
       tiebreaker: Number(tiebreakerEl.value),
-      week: 1,
-      timestamp: new Date()
+      createdAt: new Date()
     });
 
     statusEl.innerText = "✅ Picks submitted!";
     form.reset();
+    // re-check first option after reset
+    const first = document.querySelector('input[name="pick"]');
+    if (first) first.checked = true;
   } catch (err) {
     console.error(err);
     statusEl.innerText = "❌ Error submitting. Check console.";
