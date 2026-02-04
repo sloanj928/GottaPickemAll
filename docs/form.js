@@ -28,7 +28,7 @@ const weeklyPoll = {
 
   // Question settings
   questionId: "featured_matchup",
-  questionText: "Who wins the featured matchup?",
+  questionText: "Teams",
 
   // "multiple_choice" OR "short_answer"
   type: "multiple_choice",
@@ -54,13 +54,12 @@ const weeklyPoll = {
 const form = document.getElementById("pickForm");
 const statusEl = document.getElementById("status");
 const nameEl = document.getElementById("name");
-const tiebreakerEl = document.getElementById("tiebreaker");
-
-document.getElementById("pollTitle").innerText = weeklyPoll.title;
-document.getElementById("pollDesc").innerText = weeklyPoll.description;
 
 const tiebreakerEl = document.getElementById("tiebreaker");
 const tiebreakerLabelEl = document.getElementById("tiebreakerLabel");
+
+document.getElementById("pollTitle").innerText = weeklyPoll.title;
+document.getElementById("pollDesc").innerText = weeklyPoll.description;
 
 // Build radio choices
 const choicesWrap = document.getElementById("choices");
