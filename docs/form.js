@@ -49,6 +49,9 @@ const tiebreakerEl = document.getElementById("tiebreaker");
 document.getElementById("pollTitle").innerText = weeklyPoll.title;
 document.getElementById("pollDesc").innerText = weeklyPoll.description;
 
+const tiebreakerEl = document.getElementById("tiebreaker");
+const tiebreakerLabelEl = document.getElementById("tiebreakerLabel");
+
 // Build radio choices
 const choicesWrap = document.getElementById("choices");
 choicesWrap.innerHTML = `
@@ -68,6 +71,27 @@ weeklyPoll.choices.forEach((c, idx) => {
   `;
   choicesWrap.appendChild(div);
 });
+
+function applyTiebreakerUI() {
+  const tb = weeklyPoll.tiebreaker || { enabled: true, required: true };
+
+  // label/placeholder text
+  if (tiebreakerLabelEl) tiebreakerLabelEl.innerText = tb.label || "Tiebreaker";
+  if (tiebreakerEl) tiebreakerEl.placeholder = tb.placeholder || "";
+
+  // show/hide
+  const show = !!tb.enabled;
+  if (tiebreakerEl) tiebreakerEl.style.display = show ? "" : "none";
+  if (tiebreakerLabelEl) tiebreakerLabelEl.style.display = show ? "" : "none";
+
+  // require/optional
+  if (tiebreakerEl) tiebreakerEl.required = show && !!tb.required;
+
+  // if hidden, clear it so it doesn't accidentally submit
+  if (!show && tiebreakerEl) tiebreakerEl.value = "";
+}
+
+applyTiebreakerUI();
 
 function getSelectedPick() {
   const selected = document.querySelector('input[name="pick"]:checked');
