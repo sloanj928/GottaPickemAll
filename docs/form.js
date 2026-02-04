@@ -19,25 +19,33 @@ const db = getFirestore(app);
 /* ====== 2) EDIT THIS EACH WEEK ====== */
 const weeklyPoll = {
   week: 1,
-  title: "Superbowl Champ",
-  description: "Pick your favorite team to win the Super Bowl\n +1pt for each playoff win\n +1pt for Super Bowl win",
-  questionId: "featured_matchup",           // stable key for your script
-   questionText: "Teams",  // shown above options
-   type: "short_answer", // "multiple_choice" OR "short_answer"
+
+  // Header text
+  title: "SB Champ",
+  description: "Pick your favorite team to win the superbowl\n +1pt for each playoff win\n +1pt for SB win",
+
+  // Question settings
+  questionId: "featured_matchup",
+  questionText: "Who wins the featured matchup?",
+
+  // "multiple_choice" OR "short_answer"
+  type: "multiple_choice",
+
+  // Only used if type === "multiple_choice"
   choices: [
-    { value: "MIN", label: "Vikings", tag: "SKOL" },
-    { value: "GB",  label: "Packers", tag: "" },
-    { value: "DET", label: "Lions",   tag: "" },
-    { value: "CHI", label: "Bears",   tag: "" }
-       
-   //tiebreaker toggle
-   tiebreaker: {
-    enabled: true,
-    required: true,
-    label: "Total Points (tiebreaker)",
+    { value: "MIN", label: "Vikings" },
+    { value: "GB", label: "Packers" },
+    { value: "DET", label: "Lions" },
+    { value: "CHI", label: "Bears" }
+  ],
+
+  // Tiebreaker toggle (show/hide + required/optional)
+  tiebreaker: {
+    enabled: true,         // set false to hide it
+    required: true,        // set false to make it optional
+    label: "Tiebreaker (Total Points)",
     placeholder: "e.g. 47"
   }
-  ]
 };
 
 /* ====== 3) Render poll UI ====== */
