@@ -23,7 +23,7 @@ const weeklyPoll = {
   description: "Pick your favorite team to win the Super Bowl\n +1pt for each playoff win\n +1pt for Super Bowl win",
   questionId: "featured_matchup",           // stable key for your script
    questionText: "Teams",  // shown above options
-   type: "multiple_choice", // OR "short_answer"
+   type: "short_answer", // "multiple_choice" OR "short_answer"
   choices: [
     { value: "MIN", label: "Vikings", tag: "SKOL" },
     { value: "GB",  label: "Packers", tag: "" },
